@@ -1,38 +1,60 @@
+
 .App {
-  text-align: center;
+  width: calc(100vw - 100px);
+  height: calc(100vh - 100px);
+  padding: 50px;
+  background-color: black;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 220px 1fr 220px;
+  grid-template-rows: 1fr 1fr;
+  gap: 20px;
+  grid-template-areas:
+    "tl background tr"
+    "bl background br"
+}
+.tl { grid-area: tl; }
+.tr { grid-area: tr; }
+.bl { grid-area: bl; align-self: flex-end; }
+.br { grid-area: br; align-self: flex-end; }
+.background { grid-area: background; }
+
+
+.background {
+  position: relative;
+  --tl: blue;
+  --tr: white;
+  --bl: orange;
+  --br: black;
+  border: 1px solid white;
+  position: relative;
+  background: linear-gradient(90deg, var(--tl), var(--tr));
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.code {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  white-space: pre;
+  font-family: 'Courier New', Courier, monospace;
+  border: 1px solid #ffffff;
+  padding: 20px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.background:hover .code {
+  background-color: rgba(255,255,255,0.75);
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.background:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  mask-image: linear-gradient(to bottom, transparent, black);
+  background: linear-gradient(90deg, var(--bl), var(--br));	
 }
